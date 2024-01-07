@@ -1,0 +1,33 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id           String   @id @default(cuid())
+  name         String
+  matricNo     String
+  image        String
+  points       Int
+  sessionToken String?
+  notes        Notes[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Notes {
+  id         String   @id @default(cuid())
+  title      String
+  subject    String
+  contentURL String
+  published  Boolean  @default(false)
+  author     Student  @relation(fields: [authorId], references: [id])
+  authorId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
