@@ -6,7 +6,15 @@ import { ScrollTrigger } from "gsap/all";
 import React, { useLayoutEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-export default function ImageWrapper({ className, children, custom }) {
+export default function ImageWrapper({
+  className,
+  children,
+  custom,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+  custom?: number;
+}) {
   const imageRef = useRef();
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);

@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaStarOfLife } from "react-icons/fa";
-import { GiSpring } from "react-icons/gi";
 import React, { useEffect, useRef, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import StickerPlanes from "@/components/sticker-planes";
@@ -13,7 +11,7 @@ const Hero = () => {
   useEffect(() => {
     const lenis = new Lenis();
 
-    const raf = (time) => {
+    const raf = (time: number) => {
       lenis.raf(time);
       requestAnimationFrame(raf);
     };
@@ -22,25 +20,24 @@ const Hero = () => {
   }, []);
 
   return (
-    <main
-      onMouseMove={(e) => {
+    <section
+      onMouseMove={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        // @ts-ignore
         setMouseMovement(e);
       }}
       className="w-full flex flex-col px-[5.5rem] bg-cyan-200 bg-[linear-gradient(to_right,#00e1e2_1px,transparent_1px),linear-gradient(to_bottom,#00e1e2_1px,transparent_1px)] bg-[size:4rem_4rem]"
     >
-      <section id="hero" ref={HeroRef} className="h-screen w-full relative">
+      <div id="hero" ref={HeroRef} className="h-screen w-full relative">
         <StickerPlanes MouseMovement={MouseMovement} />
         <motion.div
           initial={{
-            opacity: 0,
-            y: 30,
+            scale: 0,
           }}
           animate={{
-            opacity: 1,
-            y: 0,
+            scale: 1,
           }}
           transition={{
-            delay: 0.2,
+            delay: 0.5,
             duration: 1,
             ease: "easeInOut",
           }}
@@ -53,8 +50,8 @@ const Hero = () => {
             Need to study? Can&apos;t find notes? We got you!
           </p>
         </motion.div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 };
 
