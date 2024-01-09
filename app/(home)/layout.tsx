@@ -1,5 +1,6 @@
 "use client";
 
+import LoginForm from "@/components/login-form";
 import UserDropdown from "@/components/user-dropdown";
 import { Dialog, Disclosure, Transition } from "@headlessui/react";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import {
   FaRobot,
 } from "react-icons/fa";
 import { IoLibrary } from "react-icons/io5";
+import { useSessionStore } from "@/hooks/session-store";
 
 const navigation = [
   { name: "Home", href: "#", icon: FaHome, current: true },
@@ -57,8 +59,12 @@ function classNames(...classes: string[]) {
 
 export default function HomeLayout({
   children,
-}: { children: React.ReactNode }) {
+}: {
+  children: React.ReactNode;
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const { session } = useSessionStore();
 
   return (
     <div>
@@ -371,7 +377,9 @@ export default function HomeLayout({
               />
 
               {/* Profile dropdown */}
-              <UserDropdown />
+              {
+                session ? <UserDropdown /> : <LoginForm />
+              }
             </div>
           </div>
         </div>

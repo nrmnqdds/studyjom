@@ -53,7 +53,6 @@ type moodleData = {
  * @param {string} password Use the same password you use to login to i-ma'luum.
  * @returns {Promise<TSession>} Returns the user's full name, matric number and image.
  */
-
 export async function MoodleLogin(
   username: string,
   password: string
