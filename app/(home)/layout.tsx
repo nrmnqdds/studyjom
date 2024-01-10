@@ -20,6 +20,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/default/avatar";
+import { Button } from "@/components/default/button";
 
 const navigation = [
   { name: "Home", href: "#", icon: FaHome, current: true },
@@ -274,6 +275,27 @@ export default function HomeLayout({
               </span>
             </span>
           </div>
+
+          <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-col items-center justify-center">
+              <h1 className="text-black">0</h1>
+              <span className="text-indigo-900">Uploads</span>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <h1 className="text-black">0</h1>
+              <span className="text-indigo-900">Points</span>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <h1 className="text-black">0</h1>
+              <span className="text-indigo-900">Rank</span>
+            </div>
+          </div>
+
+          <Link href="/upload">
+            <Button className="rounded-full bg-cyan-300 hover:bg-cyan-400 active:bg-cyan-500 w-full">
+              Upload
+            </Button>
+          </Link>
 
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-7">
