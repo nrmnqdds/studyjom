@@ -17,9 +17,10 @@ const SessionProvider = ({ children }: { children: React.ReactNode }) => {
       return res;
     },
     retry: 1,
+    enabled: !session,
   });
 
-  return fetchSession.isFetching ? (
+  return fetchSession.isFetching && !session ? (
     <main className="w-full h-screen flex flex-col gap-10 items-center justify-center bg-emerald-500">
       <h1 className="text-yellow-500 font-bold text-8xl [text-shadow:-3px_-3px_0_#09090b,3px_-3px_0_#09090b,_-3px_3px_0_#09090b,3px_3px_0_#09090b] drop-shadow-[4px_4px_0_#000] ">
         StudyJom!
