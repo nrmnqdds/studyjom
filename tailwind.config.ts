@@ -15,6 +15,8 @@ const config: Config = {
       },
       boxShadow: {
         default: "2px 2px 0px rgba(0, 0, 0, 1)",
+        "default-md": "4px 4px 0px rgba(0, 0, 0, 1)",
+        "default-lg": "8px 8px 0px rgba(0, 0, 0, 1)",
       },
     },
   },
