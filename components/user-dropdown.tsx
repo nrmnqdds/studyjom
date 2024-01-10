@@ -7,10 +7,11 @@ import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { Fragment } from "react";
 import toast from "react-hot-toast";
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/default/avatar";
 
 const UserDropdown = () => {
   const { session } = useSessionStore();
@@ -34,11 +35,10 @@ const UserDropdown = () => {
     <Menu as="div" className="relative">
       <Menu.Button className="-m-1.5 flex items-center p-1.5">
         <span className="sr-only">Open user menu</span>
-        <img
-          className="h-8 w-8 rounded-full bg-gray-50"
-          src={session?.image}
-          alt=""
-        />
+        <Avatar>
+          <AvatarImage src={session?.image as string} />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
         <span className="hidden lg:flex lg:items-center">
           <span
             className="ml-4 text-sm font-semibold leading-6 text-gray-900"

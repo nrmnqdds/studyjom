@@ -14,6 +14,12 @@ import {
 } from "react-icons/fa";
 import { IoLibrary } from "react-icons/io5";
 import { useSessionStore } from "@/hooks/session-store";
+import { Input } from "@/components/default/input";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/default/avatar";
 
 const navigation = [
   { name: "Home", href: "#", icon: FaHome, current: true },
@@ -247,6 +253,28 @@ export default function HomeLayout({
               StudyJom!
             </Link>
           </div>
+
+          <div className="flex flex-row items-center justify-start">
+            <Avatar>
+              <AvatarImage src={session?.image as string} />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <span className="hidden lg:flex flex-col items-start justify-center">
+              <span
+                className="ml-4 text-sm font-semibold leading-none text-indigo-900"
+                aria-hidden="true"
+              >
+                {session?.name}
+              </span>
+              <span
+                className="ml-4 text-sm font-semibold leading-6 text-indigo-900"
+                aria-hidden="true"
+              >
+                {session?.matricNo}
+              </span>
+            </span>
+          </div>
+
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-7">
               <li>
@@ -353,10 +381,10 @@ export default function HomeLayout({
 
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <div className="flex flex-1 py-2">
-              <input
+              <Input
                 id="search-field"
-                className="block h-full w-full border-2 border-solid border-black shadow-default py-0 pl-8 px-2 rounded-full text-gray-900 placeholder:text-zinc-800 focus:ring-0 focus:outline-none focus:shadow-none sm:text-sm"
                 placeholder="Search..."
+                className="w-full text-black rounded-full px-10"
                 type="search"
                 name="search"
               />
@@ -377,9 +405,7 @@ export default function HomeLayout({
               />
 
               {/* Profile dropdown */}
-              {
-                session ? <UserDropdown /> : <LoginForm />
-              }
+              {session ? <UserDropdown /> : <LoginForm />}
             </div>
           </div>
         </div>
