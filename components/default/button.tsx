@@ -12,7 +12,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         type="button"
         className={cn(
-          "text-black border-black border-2 p-2.5 bg-purple-300 hover:bg-purple-400 hover:shadow-default transition-all active:bg-purple-500 rounded-md",
+          "text-black border-black border-2 p-2.5 bg-purple-300 hover:bg-purple-400 shadow-default active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all active:bg-purple-500 rounded-md",
           className
         )}
         {...props}
