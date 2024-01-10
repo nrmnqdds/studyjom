@@ -3,6 +3,7 @@ type TSession = {
   name: string;
   image: string;
   matricNo: string;
+  password: string;
   points: number;
   sessionToken?: string | null;
 };
