@@ -8,6 +8,8 @@ import { SignJWT, jwtVerify } from "jose";
 import { nanoid } from "nanoid";
 import { cookies } from "next/headers";
 
+const secret = process.env.NEXT_PUBLIC_JWT_SECRET as string;
+
 type UserJwtPayload = {
   jti: string;
   iat: number;
@@ -62,8 +64,6 @@ export async function MoodleLogin(
     password: password,
     service: "moodle_mobile_app",
   });
-
-  const secret = process.env.NEXT_PUBLIC_JWT_SECRET as string;
 
   try {
     await connectPrisma();
@@ -140,6 +140,7 @@ export async function MoodleLogin(
         data: {
           name,
           matricNo,
+          password,
           image,
           points: 0,
           sessionToken: token,
@@ -198,3 +199,39 @@ export async function MoodleLogout(sessionToken: string) {
     throw new Error("Invalid Credentials");
   }
 }
+
+export const VerifySession = async () => {
+  await connectPrisma();
+
+  try {
+    const sessionToken = cookies().get("studyjom_session");
+
+    if (!sessionToken) {
+      return null;
+    }
+
+    const { payload } = await jwtVerify(
+      sessionToken.value as string,
+      new TextEncoder().encode(secret)
+    );
+
+    if (!payload) {
+      return null;
+    }
+
+    const student = await client.student.findFirst({
+      where: {
+        sessionToken: sessionToken.value as string,
+      },
+    });
+
+    if (!student) {
+      return null;
+    }
+
+    return student;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Invalid Session");
+  }
+};
