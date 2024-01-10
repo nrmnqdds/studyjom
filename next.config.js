@@ -8,6 +8,16 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "corsproxy.io",
+        pathname: "**",
+        port: "",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
