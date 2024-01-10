@@ -3,12 +3,14 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import SessionProvider from "@/contexts/session-provider";
 
 // const inter = Inter({ subsets: ['latin'] })
 const bricolageGrotesk = Bricolage_Grotesque({
   subsets: ["latin"],
   weight: "700",
   display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -27,8 +29,10 @@ export default function RootLayout({
         className={`scroll-smooth scrollbar-hide ${bricolageGrotesk.className}`}
       >
         <QueryProvider>
-          {children}
-          <Toaster reverseOrder={false} />
+          <SessionProvider>
+            {children}
+            <Toaster reverseOrder={false} />
+          </SessionProvider>
         </QueryProvider>
       </body>
     </html>
