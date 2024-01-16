@@ -17,7 +17,7 @@ const SessionProvider = ({ children }: { children: React.ReactNode }) => {
       return res;
     },
     retry: 1,
-    enabled: !session,
+    refetchOnWindowFocus: false,
   });
 
   return fetchSession.isFetching && !session ? (
