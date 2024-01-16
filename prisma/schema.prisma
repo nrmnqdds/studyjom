@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -26,7 +26,6 @@ model Notes {
   title      String
   subject    String
   contentURL String
-  published  Boolean  @default(false)
   author     Student  @relation(fields: [authorId], references: [id])
   authorId   String
   createdAt  DateTime @default(now())
