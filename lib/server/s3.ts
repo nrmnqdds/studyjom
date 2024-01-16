@@ -1,7 +1,7 @@
 "use server";
 
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { revalidatePath } from "next/cache";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 const s3Client = new S3Client({
   region: process.env.NEXT_PUBLIC_S3_REGION as string,
@@ -67,10 +67,7 @@ export async function UploadFile(formData: FormData) {
     // Revalidate cache
     revalidatePath("/");
 
-    return {
-      success: true,
-      body: fileName,
-    };
+    return `https://istudy-bucket2.s3.ap-southeast-1.amazonaws.com/${fileName}`;
   } catch (error) {
     console.log("error: ", error);
     throw new Error("Error uploading file");
