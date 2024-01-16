@@ -1,7 +1,15 @@
 "use client";
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/default/avatar";
+import { Button } from "@/components/default/button";
+import { Input } from "@/components/default/input";
 import LoginForm from "@/components/login-form";
 import UserDropdown from "@/components/user-dropdown";
+import { useSessionStore } from "@/hooks/session-store";
 import { Dialog, Disclosure, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { Fragment, useState } from "react";
@@ -13,14 +21,6 @@ import {
   FaRobot,
 } from "react-icons/fa";
 import { IoLibrary } from "react-icons/io5";
-import { useSessionStore } from "@/hooks/session-store";
-import { Input } from "@/components/default/input";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/default/avatar";
-import { Button } from "@/components/default/button";
 
 const navigation = [
   { name: "Home", href: "#", icon: FaHome, current: true },
@@ -255,47 +255,51 @@ export default function HomeLayout({
             </Link>
           </div>
 
-          <div className="flex flex-row items-center justify-start">
-            <Avatar>
-              <AvatarImage src={session?.image as string} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <span className="hidden lg:flex flex-col items-start justify-center">
-              <span
-                className="ml-4 text-sm font-semibold leading-none text-indigo-900"
-                aria-hidden="true"
-              >
-                {session?.name}
-              </span>
-              <span
-                className="ml-4 text-sm font-semibold leading-6 text-indigo-900"
-                aria-hidden="true"
-              >
-                {session?.matricNo}
-              </span>
-            </span>
-          </div>
+          {session && (
+            <>
+              <div className="flex flex-row items-center justify-start">
+                <Avatar>
+                  <AvatarImage src={session?.image as string} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <span className="hidden lg:flex flex-col items-start justify-center">
+                  <span
+                    className="ml-4 text-sm font-semibold leading-none text-indigo-900"
+                    aria-hidden="true"
+                  >
+                    {session?.name}
+                  </span>
+                  <span
+                    className="ml-4 text-sm font-semibold leading-6 text-indigo-900"
+                    aria-hidden="true"
+                  >
+                    {session?.matricNo}
+                  </span>
+                </span>
+              </div>
 
-          <div className="flex flex-row items-center justify-between">
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="text-black">0</h1>
-              <span className="text-indigo-900">Uploads</span>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="text-black">0</h1>
-              <span className="text-indigo-900">Points</span>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="text-black">0</h1>
-              <span className="text-indigo-900">Rank</span>
-            </div>
-          </div>
+              <div className="flex flex-row items-center justify-between">
+                <div className="flex flex-col items-center justify-center">
+                  <h1 className="text-black">0</h1>
+                  <span className="text-indigo-900">Uploads</span>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                  <h1 className="text-black">0</h1>
+                  <span className="text-indigo-900">Points</span>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                  <h1 className="text-black">0</h1>
+                  <span className="text-indigo-900">Rank</span>
+                </div>
+              </div>
 
-          <Link href="/upload">
-            <Button className="rounded-full bg-cyan-300 hover:bg-cyan-400 active:bg-cyan-500 w-full">
-              Upload
-            </Button>
-          </Link>
+              <Link href="/upload">
+                <Button className="rounded-full bg-cyan-300 hover:bg-cyan-400 active:bg-cyan-500 w-full">
+                  Upload
+                </Button>
+              </Link>
+            </>
+          )}
 
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-7">
