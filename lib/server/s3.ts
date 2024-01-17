@@ -1,6 +1,10 @@
 "use server";
 
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import { revalidatePath } from "next/cache";
 
 const s3Client = new S3Client({
@@ -71,5 +75,26 @@ export async function UploadFile(formData: FormData) {
   } catch (error) {
     console.log("error: ", error);
     throw new Error("Error uploading file");
+  }
+}
+
+export async function DeleteFile(fileName: string) {
+  try {
+    if (!fileName) {
+      throw new Error("No file");
+    }
+
+    const params = {
+      Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME as string,
+      Key: fileName,
+    };
+
+    const command = new DeleteObjectCommand(params);
+    await s3Client.send(command);
+
+    return true;
+  } catch (error) {
+    console.log("error: ", error);
+    throw new Error("Error deleting file");
   }
 }

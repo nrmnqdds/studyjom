@@ -2,12 +2,29 @@
 
 import { Button } from "@/components/default/button";
 import { useFileUploadStore } from "@/hooks/upload-store";
+import { DeleteFile } from "@/lib/server/s3";
 import { Dialog, Transition } from "@headlessui/react";
+import { useMutation } from "@tanstack/react-query";
 import { Fragment, useState } from "react";
 
 const ConfirmDeleteModal = () => {
   const [open, setOpen] = useState(false);
-  const { setUploadedFile } = useFileUploadStore();
+  const { uploadedFile, setUploadedFile } = useFileUploadStore();
+
+  const deleteMutation = useMutation({
+    mutationKey: ["delete-file"],
+    mutationFn: DeleteFile,
+    onSuccess: () => {
+      setUploadedFile(null);
+    },
+  });
+
+  const handleConfirm = () => {
+    deleteMutation.mutateAsync(uploadedFile as string);
+    setUploadedFile(null);
+    setOpen(false);
+  };
+
   return (
     <>
       <Button
@@ -56,7 +73,7 @@ const ConfirmDeleteModal = () => {
                     </Button>
                     <Button
                       className="bg-green-300 hover:bg-green-400"
-                      onClick={() => setUploadedFile(null)}
+                      onClick={handleConfirm}
                     >
                       Confirm
                     </Button>
